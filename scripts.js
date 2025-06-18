@@ -1,3 +1,4 @@
+// we arent using these channel ids for now but i have them here incase we need them later
 const CHANNEL_IDS = [
   "UCdgfdgtW1XupCf92PaDPh4w", // Cloudsy
   "UCcnP3pdYW8gCkNdzUqaDpqQ", // Duckie
@@ -18,13 +19,26 @@ const CHANNEL_IDS = [
 ];
 
 const UPLOAD_PLAYLIST_IDS = [
-  "UUdgfdgtW1XupCf92PaDPh4w", "UUcnP3pdYW8gCkNdzUqaDpqQ", "UC9q1UkRbthG1LmDShU0At7Q", "UUBN-EYO6WLEhGDcBWv_xiRQ",
-  "UUxiRz8eG7dCigGDxd7xKmbg", "UUWzw72V4E33UcbtHBZAc8QQ", "UUkDX3RwSZOsBo_Rd5t9dtqg", "UUOiyKbbkvwoGnFMc5LbeNEw",
-  "UUwaK1gmmTE2v9mz8Ky1Nyog", "UUa4xOOstTqBHDtO_kWjYCEA", "UU2_iuMr1_yrwoMorVHoFRcQ", "UUf6_jrpW2tSr7ZkRvRYBIMA",
-  "UUiK3ImEtWKV5tGOxoCvA-_A", "UUluDOpUzFrV5wzMAlKABxGg", "UUoic94ZyEsx6OnfRWK5j6-g", "UU3KLF5S1mSSFiOFNKIhQh2A",
-  "UUEhAxizKRZMffNpoxLNs-1Q",
+  "UUdgfdgtW1XupCf92PaDPh4w", // Cloudsy
+  "UUcnP3pdYW8gCkNdzUqaDpqQ", // Duckie
+  "UC9q1UkRbthG1LmDShU0At7Q", // Hidngem
+  "UUBN-EYO6WLEhGDcBWv_xiRQ", // Ikeberg
+  "UUxiRz8eG7dCigGDxd7xKmbg", // Lagging_daze
+  "UUWzw72V4E33UcbtHBZAc8QQ", // Lucid
+  "UUkDX3RwSZOsBo_Rd5t9dtqg", // MrCakeness
+  "UUOiyKbbkvwoGnFMc5LbeNEw", // PizzaBuff
+  "UUwaK1gmmTE2v9mz8Ky1Nyog", // Pokemaniac_101
+  "UUa4xOOstTqBHDtO_kWjYCEA", // SanityAstray
+  "UU2_iuMr1_yrwoMorVHoFRcQ", // SimplyKnight
+  "UUf6_jrpW2tSr7ZkRvRYBIMA", // Swearo
+  "UUiK3ImEtWKV5tGOxoCvA-_A", // Tramonik
+  "UUluDOpUzFrV5wzMAlKABxGg", // TreeMuffins
+  "UUoic94ZyEsx6OnfRWK5j6-g", // VeryUnWill
+  "UU3KLF5S1mSSFiOFNKIhQh2A", // Weasel
+  "UUEhAxizKRZMffNpoxLNs-1Q", // z
 ];
 
+// Replace with EC6 playlist IDs when available
 const PLAYLIST_IDS = {
   Cloudsy: "PLVURi-7eDwLiBuKxX0i7HFj8tYNn2iyN5",
   Duckie: "PLyIZAoTBNHO4XWCW-4AIKukmEKU2ex1HK",
@@ -48,35 +62,40 @@ const PLAYLIST_IDS = {
 
 const toggle = document.getElementById("toggleEchoCraftOnly");
 const videoFeed = document.getElementById("video-feed");
-const filterShortsToggle = document.getElementById("filter-shorts");
-const filterLivestreamsToggle = document.getElementById("filter-livestreams");
 
+toggle.addEventListener("change", () => {
+  loadAllVideos(toggle.checked);
+});
+
+// Cache object to store fetched data
 const cache = {
   playlists: {},
   uploadPlaylist: {},
 };
 
+// Helper function to check if cached data is still valid
 function isCacheValid(cacheKey, type) {
   const cached = cache[type][cacheKey];
   if (!cached) return false;
+
   const now = Date.now();
-  const oneHour = 60 * 60 * 1000;
+  const oneHour = 60 * 60 * 1000; // 60 minutes in milliseconds
   return now - cached.timestamp < oneHour;
 }
 
 async function fetchPlaylistVideos(playlistId) {
-  const res = await fetch(`https://www.youtube.com/api/youtube?type=playlist&id=${playlistId}`);
+  const res = await fetch(`/api/youtube?type=playlist&id=${playlistId}`);
   const data = await res.json();
   if (!data.items) return [];
 
   return data.items
     .filter(
       (item) =>
-        item.snippet &&
+        item.snippet && // skip if snippet is missing (private/deleted/unlisted)
         item.snippet.title !== "Private video" &&
         item.snippet.title !== "Deleted video" &&
         item.snippet.title !== "Unlisted video" &&
-        item.snippet.thumbnails
+        item.snippet.thumbnails // ensure thumbnails exist
     )
     .map((item) => ({
       videoId: item.snippet.resourceId.videoId,
@@ -84,11 +103,54 @@ async function fetchPlaylistVideos(playlistId) {
       thumbnail: item.snippet.thumbnails.medium.url,
       publishedAt: item.snippet.publishedAt,
       channelTitle: item.snippet.channelTitle,
-      liveBroadcastContent: item.snippet.liveBroadcastContent || "none",
     }));
 }
 
+// async function fetchChannelVideos(channelId) {
+//   // Check if data is cached and valid
+//   if (isCacheValid(channelId, "channels")) {
+//     return cache.channels[channelId].data;
+//   }
+
+//   const res = await fetch(
+//     `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&id=${channelId}&part=snippet&type=video&order=date&maxResults=10`
+//   );
+//   const data = await res.json();
+//   if (!data.items) return [];
+
+//   const videos = data.items.map((item) => ({
+//     videoId: item.id.videoId,
+//     title: item.snippet.title,
+//     thumbnail: item.snippet.thumbnails.medium.url,
+//     publishedAt: item.snippet.publishedAt,
+//     channelTitle: item.snippet.channelTitle,
+//   }));
+
+//   // Cache the fetched data with a timestamp
+//   cache.channels[channelId] = {
+//     data: videos,
+//     timestamp: Date.now(),
+//   };
+
+//   return videos;
+// }
+
+async function fetchMostRecentVideo(uploadPlaylistId) {
+  const res = await fetch(`/api/youtube?type=playlist&id=${uploadPlaylistId}`);
+  const data = await res.json();
+  if (!data.items) return [];
+
+  return data.items.map((item) => ({
+    videoId: item.snippet.resourceId.videoId,
+    title: item.snippet.title,
+    thumbnail: item.snippet.thumbnails.medium.url,
+    publishedAt: item.snippet.publishedAt,
+    channelTitle: item.snippet.channelTitle,
+  }));
+}
+
 async function fetchAllVideosFromUploadPlaylist(uploadPlaylistId) {
+  // Check if data is cached and valid
   if (isCacheValid(uploadPlaylistId, "uploadPlaylist")) {
     return cache.uploadPlaylist[uploadPlaylistId].data;
   }
@@ -97,15 +159,16 @@ async function fetchAllVideosFromUploadPlaylist(uploadPlaylistId) {
   const data = await res.json();
   if (!data.items) return [];
 
+  // No filtering, just map whatever is returned
   const videos = data.items.map((item) => ({
     videoId: item.snippet?.resourceId?.videoId || "",
     title: item.snippet?.title || "Unavailable",
     thumbnail: item.snippet?.thumbnails?.medium?.url || "",
     publishedAt: item.snippet?.publishedAt || "",
     channelTitle: item.snippet?.channelTitle || "",
-    liveBroadcastContent: item.snippet?.liveBroadcastContent || "none",
   }));
 
+  // Cache the fetched data with a timestamp
   cache.uploadPlaylist[uploadPlaylistId] = {
     data: videos,
     timestamp: Date.now(),
@@ -119,6 +182,7 @@ async function loadAllVideos(echoCraftOnly) {
   const feed = [];
 
   if (echoCraftOnly) {
+    // Only show videos from the echocraft playlists
     for (const key of Object.keys(PLAYLIST_IDS)) {
       const id = PLAYLIST_IDS[key];
       if (id.startsWith("PLxxx")) continue;
@@ -130,6 +194,7 @@ async function loadAllVideos(echoCraftOnly) {
       }
     }
   } else {
+    // Show all videos from all upload playlists ids
     for (const uploadPlaylistId of UPLOAD_PLAYLIST_IDS) {
       try {
         const videos = await fetchAllVideosFromUploadPlaylist(uploadPlaylistId);
@@ -140,24 +205,12 @@ async function loadAllVideos(echoCraftOnly) {
     }
   }
 
-  let filteredFeed = feed;
+  // Sort all collected videos by most recent
+  feed.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
 
-  if (filterShortsToggle.checked) {
-    filteredFeed = filteredFeed.filter(
-      (v) => !v.title.toLowerCase().includes("shorts")
-    );
-  }
-
-  if (filterLivestreamsToggle.checked) {
-    filteredFeed = filteredFeed.filter(
-      (v) => !(v.liveBroadcastContent === "live" || v.liveBroadcastContent === "upcoming")
-    );
-  }
-
-  filteredFeed.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-  renderFeed(filteredFeed.slice(0, 20));
+  // Limit to top 20 most recent
+  renderFeed(feed.slice(0, 20));
 }
-
 function renderFeed(videos) {
   videoFeed.innerHTML = "";
 
@@ -170,7 +223,9 @@ function renderFeed(videos) {
     const el = document.createElement("div");
     el.className = "video-card";
     el.innerHTML = `
-      <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank">
+      <a href="https://www.youtube.com/watch?v=${
+        video.videoId
+      }" target="_blank">
         <img src="${video.thumbnail}" alt="${video.title}" />
         <div class="info">
           <h4>${video.title}</h4>
@@ -183,8 +238,85 @@ function renderFeed(videos) {
   });
 }
 
+async function fetchVideos(type, id) {
+  try {
+    const response = await fetch(`/api/youtube?type=${type}&id=${id}`);
+    const data = await response.json();
+
+    if (data.error) {
+      console.error(data.error);
+      videoFeed.innerHTML = `<p>Error: ${data.error}</p>`;
+      return [];
+    }
+
+    return data.items
+      .filter(
+        (item) =>
+          item.snippet &&
+          item.snippet.resourceId &&
+          item.snippet.thumbnails &&
+          item.snippet.title !== "Private video" &&
+          item.snippet.title !== "Deleted video" &&
+          item.snippet.title !== "Unlisted video"
+      )
+      .map((item) => ({
+        videoId: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.medium.url,
+        publishedAt: item.snippet.publishedAt,
+        channelTitle: item.snippet.channelTitle,
+      }));
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    videoFeed.innerHTML = `<p>Error fetching videos</p>`;
+    return [];
+  }
+}
+
+// Render videos in the DOM
+function renderVideos(videos) {
+  videoFeed.innerHTML = "";
+
+  if (videos.length === 0) {
+    videoFeed.innerHTML = "<p>fetching videos...</p>";
+    return;
+  }
+
+  videos.forEach((video) => {
+    const videoCard = document.createElement("div");
+    videoCard.className = "video-card";
+    videoCard.innerHTML = `
+      <a href="https://www.youtube.com/watch?v=${
+        video.videoId
+      }" target="_blank">
+        <img src="${video.thumbnail}" alt="${video.title}" />
+        <div class="info">
+          <h4>${video.title}</h4>
+          <p>${video.channelTitle}</p>
+          <small>${timeSince(new Date(video.publishedAt))} ago</small>
+        </div>
+      </a>
+    `;
+    videoFeed.appendChild(videoCard);
+  });
+}
+
+// Initial load
+loadAllVideos(true);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const hamburgerMenu = document.getElementById("hamburger-menu");
+  const sidebar = document.getElementById("sidebar");
+
+  hamburgerMenu.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+  });
+});
+// Function to format time since a date
+
 function timeSince(date) {
   const seconds = Math.floor((new Date() - date) / 1000);
+
   const intervals = [
     { label: "year", seconds: 31536000 },
     { label: "month", seconds: 2592000 },
@@ -194,21 +326,25 @@ function timeSince(date) {
     { label: "minute", seconds: 60 },
     { label: "second", seconds: 1 },
   ];
+
   for (const interval of intervals) {
     const count = Math.floor(seconds / interval.seconds);
     if (count >= 1) {
       return `${count} ${interval.label}${count > 1 ? "s" : ""}`;
     }
   }
+
   return "just now";
 }
 
-// Event listeners
-toggle.addEventListener("change", () => loadAllVideos(toggle.checked));
-filterShortsToggle.addEventListener("change", () => loadAllVideos(toggle.checked));
-filterLivestreamsToggle.addEventListener("change", () => loadAllVideos(toggle.checked));
+// document.addEventListener("DOMContentLoaded", async () => {
+//   const videos = await fetchVideos(
+//     "playlist",
+//     "PLMBiVR38EZoa_uVI755fXdPD8KF2FZjny"
+//   ); // Replace with a valid playlist ID
+//   renderVideos(videos);
+// });
 
-// Sidebar menu toggle logic
 const hamburger = document.getElementById("hamburger-menu");
 const sidebar = document.getElementById("sidebar");
 const closeMenu = document.getElementById("close-menu");
@@ -223,6 +359,7 @@ closeMenu.addEventListener("click", () => {
   document.body.classList.remove("menu-open");
 });
 
+// Optional: close sidebar when clicking outside of it
 document.addEventListener("click", (e) => {
   if (
     sidebar.classList.contains("active") &&
@@ -233,6 +370,3 @@ document.addEventListener("click", (e) => {
     document.body.classList.remove("menu-open");
   }
 });
-
-// Initial load
-loadAllVideos(true);
