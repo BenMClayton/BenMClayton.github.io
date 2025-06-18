@@ -1,0 +1,313 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoCraft | EchoCraftmc.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/logos/square logo.webp" type="image/webp">
+    <script src="scripts.js" defer=""></script>
+  </head>
+
+  <!-- next thing to do is to figure out how to save already loaded feeds on both options -->
+
+  <body>
+    <div class="container">
+      <button class="hamburger-menu" id="hamburger-menu">☰</button>
+      <aside class="sidebar" id="sidebar">
+        <button class="close-menu" id="close-menu">×</button>
+        <img src="./images/logos/plain.png" alt="EchoCraft SMP Logo" class="logo">
+        <div class="dropdown">
+          <button class="dropbtn">≡ Members</button>
+          <div class="dropdown-content">
+            <a href="members/cloudsy.html"><img src="images/cloudsy.jpg" alt="Cloudsy pfp" class="member-icon">Cloudsy</a>
+            <a href="members/duckie.html"><img src="images/duckie.jpg" alt="duckie pfp" class="member-icon">Duckie</a>
+            <a href="members/hidngem.html"><img src="images/hidngem.jpg" alt="hidngem pfp" class="member-icon">Hidngem</a>
+            <a href="members/ikeberg.html"><img src="images/ikeberg.jpg" alt="ikeberg pfp" class="member-icon">Ikeberg</a>
+            <a href="./members/lagging_daze.html"><img src="images/lagging_daze-1.jpg" alt="Lagging_daze pfp" class="member-icon">Lagging_daze</a>
+            <a href="members/lucid.html"><img src="images/Lucid.jpg" alt="Lucid pfp" class="member-icon">Lucid</a>
+            <a href="members/mrcakeness.html"><img src="images/MrCakeness.jpg" alt="MrCakeness pfp" class="member-icon">MrCakeness</a>
+            <a href="members/pizzabuff.html"><img src="images/pizzaBuff-2.jpg" alt="pizzaBuff-2 pfp" class="member-icon">PizzaBuff</a>
+            <a href="members/pokemaniac101.html"><img src="images/pokemaniac_101.jpg" alt="pokemaniac_101 pfp" class="member-icon">Pokemaniac_101</a>
+            <a href="members/sanityastray.html"><img src="images/SanityAstray.jpg" alt="SanityAstray pfp" class="member-icon">SanityAstray</a>
+            <a href="members/simplyknight.html"><img src="images/SimplyKnight.jpg" alt="SimplyKnight pfp" class="member-icon">SimplyKnight</a>
+            <a href="members/swearo.html"><img src="images/swearo.jpg" alt="swearo pfp" class="member-icon">Swearo</a>
+            <a href="members/tramonik.html"><img src="images/Tramonik.jpg" alt="Tramonik pfp" class="member-icon">Tramonik</a>
+            <a href="members/treemuffins.html"><img src="images/TreeMuffins.jpg" alt="TreeMuffins pfp" class="member-icon">TreeMuffins</a>
+            <a href="members/veryunwill.html"><img src="images/VeryUnWill-5.jpg" alt="VeryUnWill pfp" class="member-icon">VeryUnWill</a>
+            <a href="members/weasel.html"><img src="images/weaslestorm.jpg" alt="weaslestorm pfp" class="member-icon">Weaselstorm</a>
+            <a href="members/z.html"><img src="images/zskv.jpg" alt="zskv pfp" class="member-icon">zskv</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">≡ Map Downloads</button>
+          <div class="dropdown-content">
+            <a href="https://drive.google.com/file/d/1NRoxLCJ9yL-qwL2vJ3BBjgjWCYg5Im-D/view?usp=sharing">Season 1</a>
+            <a href="https://drive.google.com/file/d/1wBT5UhDqHLY5iX7yezsA2diwDN1ffQVq/view?usp=sharing">Season 2</a>
+            <a href="https://drive.google.com/file/d/1A4gZ5EmAxv5i-hI4EKztkj7aKr2K-mbj/view?usp=sharing">Season 3</a>
+            <a href="https://drive.google.com/file/d/1CPcvhhYl0xmqdNP7xkKRckvhLiuBEoJu/view?usp=sharing">Season 4</a>
+            <a href="https://drive.google.com/file/d/1N-wOZ3mfXQCrw0xK7N17SCGuub1vKdSx/view">Season 5</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">≡ Links</button>
+          <div class="dropdown-content">
+            <a href="about.html">About EchoCraft</a>
+            <a href="https://discord.com/invite/eUX97CYGqv">Community Discord link</a>
+            <a href="https://bsky.app/profile/echocraftsmp.bsky.social">Official BlueSky</a>
+            <a href="https://echocraft.fandom.com/wiki/Echocraft_Wiki">EchoCraft Wiki</a>
+          </div>
+        </div>
+      </aside>
+      <div class="content-grid">
+        <main class="content-column">
+          <img class="img" src="images/new_echocraft_character_logo.png">
+          <!-- <h1> un comment this and add status message if needed</h1> -->
+          <h2>Latest Videos</h2>
+          <div class="video-toggle">
+            <label>
+              <input type="checkbox" id="toggleEchoCraftOnly" checked="">
+              Show only EchoCraft videos
+            </label>
+    <label><input type="checkbox" id="filter-shorts"> Hide Shorts</label>
+<label><input type="checkbox" id="filter-livestreams"> Hide Livestreams</label>
+
+    
+          </div>
+          <div id="video-feed"><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=9rwFyfJiYfA" target="_blank">
+        <img src="https://i.ytimg.com/vi/9rwFyfJiYfA/mqdefault.jpg" alt="I Want to Build Birds : Echocraft S6 LIVE">
+        <div class="info">
+          <h4>I Want to Build Birds : Echocraft S6 LIVE</h4>
+          <p>PizzaBuff</p>
+          <small>19 hours ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=1fiwdKBym2E" target="_blank">
+        <img src="https://i.ytimg.com/vi/1fiwdKBym2E/mqdefault.jpg" alt="STOP ASKING ME iF I KNOW REKRAP. #shorts #echocraft #season6 #twitch #minecraft">
+        <div class="info">
+          <h4>STOP ASKING ME iF I KNOW REKRAP. #shorts #echocraft #season6 #twitch #minecraft</h4>
+          <p>zskv</p>
+          <small>1 day ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=jJuozNwsphU" target="_blank">
+        <img src="https://i.ytimg.com/vi/jJuozNwsphU/mqdefault.jpg" alt="EchoCraft 6 : I'm Gonna Be Rich in Minecraft - Ep 2">
+        <div class="info">
+          <h4>EchoCraft 6 : I'm Gonna Be Rich in Minecraft - Ep 2</h4>
+          <p>Ikeberg</p>
+          <small>4 days ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=K0jvzbjAj00" target="_blank">
+        <img src="https://i.ytimg.com/vi/K0jvzbjAj00/mqdefault.jpg" alt="I need so much deepslate. | EchoCraft S6 LIVE!">
+        <div class="info">
+          <h4>I need so much deepslate. | EchoCraft S6 LIVE!</h4>
+          <p>zskv</p>
+          <small>4 days ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=hjZmnHNPPJ4" target="_blank">
+        <img src="https://i.ytimg.com/vi/hjZmnHNPPJ4/mqdefault.jpg" alt="Scamming the EchoCraft SMP...">
+        <div class="info">
+          <h4>Scamming the EchoCraft SMP...</h4>
+          <p>zskv</p>
+          <small>4 days ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=H5ZqXjQp1XY" target="_blank">
+        <img src="https://i.ytimg.com/vi/H5ZqXjQp1XY/mqdefault.jpg" alt="Prepping for a Shop : Echocraft S6 LIVE">
+        <div class="info">
+          <h4>Prepping for a Shop : Echocraft S6 LIVE</h4>
+          <p>PizzaBuff</p>
+          <small>4 days ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=qp5RtkUBmTE" target="_blank">
+        <img src="https://i.ytimg.com/vi/qp5RtkUBmTE/mqdefault.jpg" alt="I will drive PizzaBuff insane | Echocraft S6E2">
+        <div class="info">
+          <h4>I will drive PizzaBuff insane | Echocraft S6E2</h4>
+          <p>hidngemini</p>
+          <small>5 days ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=C-O5vDUSL2k" target="_blank">
+        <img src="https://i.ytimg.com/vi/C-O5vDUSL2k/mqdefault.jpg" alt="BRAND NEW DAY - Echocraft 6: Episode 1">
+        <div class="info">
+          <h4>BRAND NEW DAY - Echocraft 6: Episode 1</h4>
+          <p>Pokemaniac_101</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=EnKoKnoZ1eM" target="_blank">
+        <img src="https://i.ytimg.com/vi/EnKoKnoZ1eM/mqdefault.jpg" alt="The BEST Part of Being in A Minecraft SMP! | Echocraft Ep. 2">
+        <div class="info">
+          <h4>The BEST Part of Being in A Minecraft SMP! | Echocraft Ep. 2</h4>
+          <p>Swearo</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=DMt1sZoaHnk" target="_blank">
+        <img src="https://i.ytimg.com/vi/DMt1sZoaHnk/mqdefault.jpg" alt="Echocraft 6: Jumping Into Chaos | Episode 1">
+        <div class="info">
+          <h4>Echocraft 6: Jumping Into Chaos | Episode 1</h4>
+          <p>VeryUnWill</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=pBQW26_ISgk" target="_blank">
+        <img src="https://i.ytimg.com/vi/pBQW26_ISgk/mqdefault.jpg" alt="A New World, A Fresh Start - S06E01 - Echocraft">
+        <div class="info">
+          <h4>A New World, A Fresh Start - S06E01 - Echocraft</h4>
+          <p>SanityAstray</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=b341pP7czIA" target="_blank">
+        <img src="https://i.ytimg.com/vi/b341pP7czIA/mqdefault.jpg" alt="EchoCraft 6: The Sticky Start - Ep:1">
+        <div class="info">
+          <h4>EchoCraft 6: The Sticky Start - Ep:1</h4>
+          <p>Ikeberg</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=I0_dQllYP9E" target="_blank">
+        <img src="https://i.ytimg.com/vi/I0_dQllYP9E/mqdefault.jpg" alt="The Funniest Begining to an SMP...">
+        <div class="info">
+          <h4>The Funniest Begining to an SMP...</h4>
+          <p>Duckie</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=KIel_sZGudU" target="_blank">
+        <img src="https://i.ytimg.com/vi/KIel_sZGudU/mqdefault.jpg" alt="they love crushing loaf | EchoCraft S6 LIVE!">
+        <div class="info">
+          <h4>they love crushing loaf | EchoCraft S6 LIVE!</h4>
+          <p>zskv</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=aijBUgudHiA" target="_blank">
+        <img src="https://i.ytimg.com/vi/aijBUgudHiA/mqdefault.jpg" alt="THE BEST START EVER... | EC6EP1">
+        <div class="info">
+          <h4>THE BEST START EVER... | EC6EP1</h4>
+          <p>Tree Muffins</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=KZ25dAwD1EY" target="_blank">
+        <img src="https://i.ytimg.com/vi/KZ25dAwD1EY/mqdefault.jpg" alt="Pizza Clones! Echocraft 6.2">
+        <div class="info">
+          <h4>Pizza Clones! Echocraft 6.2</h4>
+          <p>Weaselstorm Gaming</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=mkW-35_N4jg" target="_blank">
+        <img src="https://i.ytimg.com/vi/mkW-35_N4jg/mqdefault.jpg" alt="Getting Settled | Echocraft S6E1">
+        <div class="info">
+          <h4>Getting Settled | Echocraft S6E1</h4>
+          <p>hidngemini</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=XhTh9eyvsGs" target="_blank">
+        <img src="https://i.ytimg.com/vi/XhTh9eyvsGs/mqdefault.jpg" alt="A New Season Begins! Echocraft 6.1">
+        <div class="info">
+          <h4>A New Season Begins! Echocraft 6.1</h4>
+          <p>Weaselstorm Gaming</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=x667LJtaHN0" target="_blank">
+        <img src="https://i.ytimg.com/vi/x667LJtaHN0/mqdefault.jpg" alt="My First Minecraft SMP Experience! | Echocraft S6 EPISODE 1!">
+        <div class="info">
+          <h4>My First Minecraft SMP Experience! | Echocraft S6 EPISODE 1!</h4>
+          <p>Swearo</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div><div class="video-card">
+      <a href="https://www.youtube.com/watch?v=_ofipjq1ZEE" target="_blank">
+        <img src="https://i.ytimg.com/vi/_ofipjq1ZEE/mqdefault.jpg" alt="mining away, i don't know what to mine i'll mine this anyway | EchoCraft S6 LIVE!">
+        <div class="info">
+          <h4>mining away, i don't know what to mine i'll mine this anyway | EchoCraft S6 LIVE!</h4>
+          <p>zskv</p>
+          <small>1 week ago</small>
+        </div>
+      </a>
+    </div></div>
+        </main>
+
+        <main class="content-column">
+          <h2>Latest News</h2>
+
+          <div>
+            <h3>Welcome the Newest Echoes to Season 6!</h3>
+            <div class="news-item">
+              <a href="members/cloudsy.html"><img src="images/cloudsy.jpg" alt="Cloudsy pfp" class="News">
+                <p>Cloudsy</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/duckie.html"><img src="images/duckie.jpg" alt="duckie pfp" class="News">
+                <p>Duckie</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/hidngem.html"><img src="images/hidngem.jpg" alt="gem pfp" class="News">
+                <p>Hidngem</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/ikeberg.html"><img src="images/ikeberg.jpg" alt="ikeberg pfp" class="News">
+                <p>Ikeberg</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/mrcakeness.html"><img src="images/MrCakeness.jpg" alt="MrCakeness pfp" class="News">
+                <p>MrCakeness</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/swearo.html"><img src="images/swearo.jpg" alt="swearo pfp" class="News">
+                <p>Swearo</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/tramonik.html"><img src="images/Tramonik.jpg" alt="Tramonik pfp" class="News">
+                <p>Tramonik</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/veryunwill.html"><img src="images/VeryUnWill-5.jpg" alt="VeryUnWill pfp" class="News">
+                <p>VeryUnWill</p></a>
+            </div>
+
+            <div class="news-item">
+              <a href="members/z.html"><img src="images/zskv.jpg" alt="zskv pfp" class="News">
+                <p>zskv</p></a>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  
+
+</body></html>
